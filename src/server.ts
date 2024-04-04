@@ -1,41 +1,56 @@
 import fastify from "fastify";
-import { z } from "zod";
-import { PrismaClient } from "@prisma/client";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
+import fastifyCors from "@fastify/cors";
+import {
+  serializerCompiler,
+  validatorCompiler,
+  jsonSchemaTransform,
+  ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import { createEvent } from "./routes/create-event";
+import { registerForEvent } from "./routes/register-for-event";
+import { getEvent } from "./routes/get-event";
+import { getAttendeeBadge } from "./routes/get-attendee-badge";
+import { checkIn } from "./routes/check-in";
+import { getEventAttendees } from "./routes/get-event-attendees"
+import { errorHandler } from "./error-handler";
 
-const app = fastify()
+const app = fastify().withTypeProvider<ZodTypeProvider>()
 
-const prima = new PrismaClient({
- log: ["query"],
+app.register(fastifyCors, { 
+  origin: "*", //http://myFrontEnd.com
 })
 
-//API REST
-//HTTP methods: GET, POST, PUT, DELETE, PATCH, HERD, OPITIONS ...
-//Request body
-//Search params our Query params (http://localhost:3333/user?id=235cvf)
-//route parameters (resource identification -> PUT:http://localhost:3333/235cvf)
-//headers (request context -> information: identification , location, language)
-//Relational database (SQLite)
+app.register(fastifySwagger, {
+  swagger: {
+    consumes: ["application/json"],
+    produces: ["application/json"],
+    info: {
+      title: "Event ticket menager",
+      description: "API specifications | Event ticket menager ",
+      version:"1.0.0"
+    },
+  },
+  transform: jsonSchemaTransform,
+});
 
-app.post("/events", async (request, reply) => {
- const createEventsSchema = z.object({
-   title: z.string().min(4),
-   details: z.string().nullable(),
-   maximumAttendees: z.number().int().positive().nullable(),
- });
- 
- const data = createEventsSchema.parse(request.body); 
- const event = await prima.event.create({
-  data: {
-   title: data.title,
-   details: data.details,
-   maximumAttendees: data.maximumAttendees,
-   slug: new Date().toISOString(),
-  }
- })
-
- return reply.status(201).send({eventid: event.id})
+app.register(fastifySwaggerUI, {
+  routePrefix: "/docs",
 })
 
-app.listen({ port: 3333 }).then(() => {
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(createEvent);
+app.register(registerForEvent);
+app.register(getEvent);
+app.register(getAttendeeBadge);
+app.register(checkIn);
+app.register(getEventAttendees);
+
+app.setErrorHandler(errorHandler)
+
+app.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP SEVER RONNING")
 })

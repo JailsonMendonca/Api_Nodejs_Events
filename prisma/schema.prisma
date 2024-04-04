@@ -11,11 +11,39 @@ datasource db {
 }
 
 model Event {
-  id      String @id @unique @default(uuid())
-  title   String
+  id String @id @unique @default(uuid())
+  title String
   details String?
-  slug    String @unique
+  slug String @unique
   maximumAttendees Int? @map("maximum_attendees")
+  attendees  Attendee[]
 
   @@map("events")
+}
+
+
+model Attendee {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  code String @unique
+  createAt DateTime @default(now()) @map("create_at")
+  eventId String @map("event_id")
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)  
+  checkIn CheckIn?
+
+ @@unique([eventId, email])
+  @@map("atendees")
+}
+
+
+model  CheckIn {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now()) @map("create_at")
+
+  attendee Attendee @relation(fields: [attendeeCode], references: [code], onDelete: Cascade)
+  attendeeCode String @unique @map("attendee_Code")
+
+  @@map("check_ins")
 }
