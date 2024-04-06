@@ -23,21 +23,21 @@ To get started with the Event Manager project, follow these steps:
 
 ### Functional Requirements
 
-[x] Organizers can register new events.
-[x]  Organizers can view event details and participant lists.
-[x]  Participants can register for events.
-[x]  Participants can view their registration badges.
-[x]  Participants can check in to events.
+- [x] Organizers can register new events.
+- [x]  Organizers can view event details and participant lists.
+- [x]  Participants can register for events.
+- [x]  Participants can view their registration badges.
+- [x]  Participants can check in to events.
 
 ### Business Rules
 
-[x]  Participants can only register for an event once.
-[x]  Participants can only register for events with available slots.
-[x]  Participants can only check in to an event once.
+- [x] Participants can only register for an event once.
+- [x] Participants can only register for events with available slots.
+- [x]  Participants can only check in to an event once.
 
 ### Non-functional Requirements
 
-[x]  Event check-in is facilitated through QR codes.
+- [x] Event check-in is facilitated through QR codes.
 
 
 
