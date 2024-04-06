@@ -139,7 +139,8 @@ Visit http://localhost:3333
 
 ## API Documentation (Swagger)
 
-For API documentation, please visit the link: 
+For API documentation:(http://localhost:3333/docs)
+![image](https://github.com/JailsonMendonca/Api_Nodejs_Events/assets/127445044/0bbf5070-dfd5-4e20-a18c-4bea5c206d83)
 
 ## Database
 
