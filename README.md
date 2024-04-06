@@ -20,6 +20,7 @@ To get started with the Event Manager project, follow these steps:
 - Prisma
 - SQLite (for development)
 
+## Requirements
 
 ### Functional Requirements
 
@@ -41,47 +42,47 @@ To get started with the Event Manager project, follow these steps:
 
 
 
-### To build Project Event Manager API
+## To build Project Event Manager API
 
-## 1st Step
+### 1st Step
 
 ```bash
 npm init -y
 ```
 
-## 2nd Step
+### 2nd Step
 
 Create the src folder and server.ts file.
 
-## 3rd Step
+### 3rd Step
 
 Install TypeScript (development dependency):
 ```bash
 npm install typescript @types/node -D
 ```
 
-## 4th Step
+### 4th Step
 
 Create tsconfig.json file:
 ```bash
 npx tsc --init
 ```
 
-## 5th Step
+### 5th Step
 
 Configure tsconfig.json:
 
 - Go to the [tsconfig repository](https://github.com/tsconfig/bases?tab=readme-ov-file) (Node20 version).
 - Copy the configuration and paste it into tsconfig.json.
 
-## 6th Step
+### 6th Step
 
 ```bash
 npm install tsx -D
 ```
 
 
-## 7th Step
+### 7th Step
 
 Add script to package.json:
 
@@ -90,21 +91,21 @@ Add script to package.json:
     "dev": "tsx watch --env-file .env src/server.ts"
 }
 ```
-## 8th Step
+### 8th Step
 Install Fastify micro framework for node (for route creation):
 
 ```bash
 npm install fastify
 ```
 
-## 9th Install ORM (Prisma):
+### 9th Install ORM (Prisma):
 
 ```bash
 npm install prisma -D
 
 npx prisma init --datasource-provider SQLite
 ```
-## 10th Run the API:
+### 10th Run the API:
 
 ```bash
 npm run dev
@@ -113,7 +114,7 @@ Visit http://localhost:3333
 
 
 
-### REST API
+## REST API
 - HTTP methods: GET, POST, PUT, DELETE, PATCH, HERD, OPTIONS ...
 - Request body
 - Search params or Query params (http://localhost:3333/user?id=235cvf)
